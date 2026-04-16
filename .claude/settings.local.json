@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd C:/Users/nba_a/GodhartsLaw/snake_cnn && python -c \"\nfrom snake_game import SnakeGame, RIGHT\nfrom cnn import HomemadeCNN, DEFAULT_ARCH, ARCH_1CONV, ARCH_DEEP, softmax\nfrom agent import SnakeAgent\nimport numpy as np\n\ngame = SnakeGame\\(20\\)\nstate = game.reset\\(\\)\nassert state.shape == \\(20, 20, 3\\)\n\nadj = game.get_adjacent\\(\\)\nprint\\('Adjacent:', adj\\)\n\nfor _ in range\\(5\\):\n    _, r, done = game.step\\(RIGHT\\)\nprint\\('After 5 steps: score=%d done=%s' % \\(game.score, done\\)\\)\n\ncnn = HomemadeCNN\\(\\)\nlogits = cnn.forward\\(state\\)\nassert logits.shape == \\(4,\\)\nprobs = softmax\\(logits\\)\nprint\\('Logits:', logits\\)\nprint\\('Probs:', probs, 'sum=%.4f' % probs.sum\\(\\)\\)\nprint\\('Architecture:'\\)\nfor line in cnn.layer_summary\\(\\):\n    print\\(' ', line\\)\n\nw = cnn.get_weights\\(\\)\ncnn.set_weights\\(w\\)\nlogits2 = cnn.forward\\(state\\)\nassert np.allclose\\(logits, logits2\\)\nprint\\('Weight round-trip OK  \\(%d params\\)' % len\\(w\\)\\)\n\nagent = SnakeAgent\\(\\)\naction, final_probs, cnn_probs = agent.decide\\(game\\)\nprint\\('Agent chose action=%d  probs=%s' % \\(action, final_probs\\)\\)\n\nfor name, arch in [\\('1conv', ARCH_1CONV\\), \\('deep', ARCH_DEEP\\)]:\n    a = SnakeAgent\\(arch=arch\\)\n    act, _, _ = a.decide\\(game\\)\n    print\\('%s arch: action=%d  params=%d' % \\(name, act, len\\(a.cnn.get_weights\\(\\)\\)\\)\\)\n\nprint\\(\\)\nprint\\('All checks passed.'\\)\n\")"
+    ]
+  }
+}

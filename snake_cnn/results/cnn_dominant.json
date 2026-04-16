@@ -1,0 +1,60 @@
+{
+  "experiment": {
+    "name": "cnn_dominant",
+    "arch_name": "default",
+    "cnn_w": 3.0,
+    "score_w": 0.1,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.05,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "description": "CNN logits dominate the decision (heuristic barely used)"
+  },
+  "timestamp": "2026-04-16T10:14:52.110612+00:00",
+  "duration_seconds": 8.51,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": -3.9999999999999587
+    },
+    {
+      "generation": 10,
+      "best_fitness": 2.673333333333172
+    },
+    {
+      "generation": 20,
+      "best_fitness": 2.673333333333172
+    },
+    {
+      "generation": 30,
+      "best_fitness": 2.673333333333392
+    },
+    {
+      "generation": 40,
+      "best_fitness": 2.6733333333334026
+    },
+    {
+      "generation": 50,
+      "best_fitness": 2.6733333333334026
+    },
+    {
+      "generation": 60,
+      "best_fitness": 2.6733333333334026
+    },
+    {
+      "generation": 70,
+      "best_fitness": 2.6733333333334026
+    },
+    {
+      "generation": 80,
+      "best_fitness": 2.6733333333334026
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 2.6733333333334026,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

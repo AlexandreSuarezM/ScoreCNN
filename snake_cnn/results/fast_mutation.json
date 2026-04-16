@@ -1,0 +1,60 @@
+{
+  "experiment": {
+    "name": "fast_mutation",
+    "arch_name": "default",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.15,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "description": "Large mutation noise \u2013 explores faster, less stable"
+  },
+  "timestamp": "2026-04-16T10:15:29.389063+00:00",
+  "duration_seconds": 9.33,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": -0.6633333333332804
+    },
+    {
+      "generation": 10,
+      "best_fitness": -0.6633333333332786
+    },
+    {
+      "generation": 20,
+      "best_fitness": -0.6633333333332775
+    },
+    {
+      "generation": 30,
+      "best_fitness": -0.6633333333332775
+    },
+    {
+      "generation": 40,
+      "best_fitness": -0.6633333333332775
+    },
+    {
+      "generation": 50,
+      "best_fitness": 2.6733333333333995
+    },
+    {
+      "generation": 60,
+      "best_fitness": 2.6733333333333995
+    },
+    {
+      "generation": 70,
+      "best_fitness": 2.6733333333333995
+    },
+    {
+      "generation": 80,
+      "best_fitness": 6.009999999999859
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 6.009999999999859,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

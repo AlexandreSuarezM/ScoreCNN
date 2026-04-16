@@ -1,0 +1,60 @@
+{
+  "experiment": {
+    "name": "fine_mutation",
+    "arch_name": "default",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.01,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "description": "Tiny mutation \u2013 slow but precise refinement"
+  },
+  "timestamp": "2026-04-16T10:15:38.992588+00:00",
+  "duration_seconds": 9.45,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": -3.9999999999999587
+    },
+    {
+      "generation": 10,
+      "best_fitness": 2.6733333333333973
+    },
+    {
+      "generation": 20,
+      "best_fitness": 2.6733333333333995
+    },
+    {
+      "generation": 30,
+      "best_fitness": 6.010000000000083
+    },
+    {
+      "generation": 40,
+      "best_fitness": 6.010000000000083
+    },
+    {
+      "generation": 50,
+      "best_fitness": 6.010000000000083
+    },
+    {
+      "generation": 60,
+      "best_fitness": 6.010000000000083
+    },
+    {
+      "generation": 70,
+      "best_fitness": 6.010000000000083
+    },
+    {
+      "generation": 80,
+      "best_fitness": 6.010000000000083
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 6.010000000000083,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

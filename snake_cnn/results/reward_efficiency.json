@@ -1,0 +1,62 @@
+{
+  "experiment": {
+    "name": "reward_efficiency",
+    "arch_name": "default",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.05,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "reward_fn": "efficiency",
+    "fruit_timeout": 40,
+    "description": "Timeout 40 steps/fruit. Early fruit = big bonus. Late = worse than death"
+  },
+  "timestamp": "2026-04-16T10:34:54.556368+00:00",
+  "duration_seconds": 1.44,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": -28.776666666666667
+    },
+    {
+      "generation": 10,
+      "best_fitness": -8.110000000000039
+    },
+    {
+      "generation": 20,
+      "best_fitness": -8.110000000000039
+    },
+    {
+      "generation": 30,
+      "best_fitness": -5.176666666666743
+    },
+    {
+      "generation": 40,
+      "best_fitness": 3.12333333333329
+    },
+    {
+      "generation": 50,
+      "best_fitness": 3.12333333333329
+    },
+    {
+      "generation": 60,
+      "best_fitness": 3.12333333333329
+    },
+    {
+      "generation": 70,
+      "best_fitness": 3.12333333333329
+    },
+    {
+      "generation": 80,
+      "best_fitness": 3.12333333333329
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 3.12333333333329,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

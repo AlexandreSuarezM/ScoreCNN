@@ -1,0 +1,60 @@
+{
+  "experiment": {
+    "name": "survival_first",
+    "arch_name": "default",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 0.3,
+    "w_open": 1.8,
+    "sigma": 0.05,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "description": "Score biased toward open space (stay alive)"
+  },
+  "timestamp": "2026-04-16T10:14:43.499096+00:00",
+  "duration_seconds": 8.64,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": -0.663333333333278
+    },
+    {
+      "generation": 10,
+      "best_fitness": 6.0100000000000735
+    },
+    {
+      "generation": 20,
+      "best_fitness": 6.0100000000000735
+    },
+    {
+      "generation": 30,
+      "best_fitness": 6.0100000000000735
+    },
+    {
+      "generation": 40,
+      "best_fitness": 6.0100000000000735
+    },
+    {
+      "generation": 50,
+      "best_fitness": 6.0100000000000735
+    },
+    {
+      "generation": 60,
+      "best_fitness": 6.0100000000000735
+    },
+    {
+      "generation": 70,
+      "best_fitness": 6.0100000000000735
+    },
+    {
+      "generation": 80,
+      "best_fitness": 6.0100000000000735
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 6.0100000000000735,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

@@ -1,0 +1,396 @@
+================================================================================
+  SNAKE CNN  –  USER GUIDE
+================================================================================
+
+CONTENTS
+  1. How to launch
+  2. Controls
+  3. How to add / remove CNN layers
+  4. How to change the score function
+  5. How to add feature channels (tail, body distance, direction…)
+  6. How to change the computation internals
+  7. How to train the agent
+  8. Quick reference map
+
+--------------------------------------------------------------------------------
+1. HOW TO LAUNCH
+--------------------------------------------------------------------------------
+
+Install dependencies once:
+    pip install numpy pygame
+
+Run the game:
+    cd snake_cnn
+    python main.py
+
+Run evolutionary training (separate terminal):
+    python train.py
+
+After training finishes it saves "best_weights.npy".
+To load those weights in main.py, open main.py and uncomment these lines
+near the bottom of main():
+
+    # import os, numpy as np
+    # if os.path.exists("best_weights.npy"):
+    #     agent.cnn.set_weights(np.load("best_weights.npy"))
+
+
+--------------------------------------------------------------------------------
+2. CONTROLS
+--------------------------------------------------------------------------------
+
+  +  /  =       speed up game   (more steps per second, max 30)
+  -             slow down game  (min 1 step per second)
+  R             restart episode
+  ESC           quit
+
+
+--------------------------------------------------------------------------------
+3. HOW TO ADD / REMOVE CNN LAYERS
+--------------------------------------------------------------------------------
+
+All architecture changes happen in main.py via the `arch` variable.
+Each layer is a Python dict in a list.  The list is read top-to-bottom.
+
+-- Layer types available --
+
+  Convolutional layer:
+    {"type": "conv", "out_ch": 16, "kernel": 3}
+    {"type": "conv", "out_ch": 32, "kernel": 3, "activation": None}   # no activation
+
+  Max-pooling layer (halves spatial size):
+    {"type": "pool", "size": 2}
+
+  Flatten  (required before any Dense layer):
+    {"type": "flatten"}
+
+  Fully-connected (Dense) layer:
+    {"type": "dense", "out_size": 64}
+    {"type": "dense", "out_size": 4, "activation": None}   # output layer, no activation
+
+  The LAST layer must be Dense with out_size=4 (one score per direction).
+
+-- Examples --
+
+Minimal (1 conv):
+    arch = [
+        {"type": "conv",    "out_ch": 8,  "kernel": 3},
+        {"type": "flatten"},
+        {"type": "dense",   "out_size": 4, "activation": None},
+    ]
+
+Default (2 conv + 2 dense, ~264k parameters):
+    arch = DEFAULT_ARCH   # imported from cnn.py
+
+Deeper with pooling (~162k parameters, faster because of pooling):
+    arch = ARCH_DEEP      # imported from cnn.py
+
+Custom example – 3 conv layers, bigger dense:
+    arch = [
+        {"type": "conv",    "out_ch": 8,  "kernel": 3},
+        {"type": "conv",    "out_ch": 16, "kernel": 3},
+        {"type": "conv",    "out_ch": 32, "kernel": 3},
+        {"type": "pool",    "size": 2},
+        {"type": "flatten"},
+        {"type": "dense",   "out_size": 128},
+        {"type": "dense",   "out_size": 64},
+        {"type": "dense",   "out_size": 4, "activation": None},
+    ]
+
+-- Kernel size --
+Larger kernels see a wider area at once.
+  kernel=3  →  3x3 patch  (default, sees immediate surroundings)
+  kernel=5  →  5x5 patch  (sees further, but shrinks the output map faster)
+
+Each conv layer with kernel=3 reduces spatial size by 2.
+  20x20  -> 18x18 -> 16x16 -> 14x14 ...
+If size reaches 0 or below, remove a layer or add pooling earlier.
+
+-- Number of filters (out_ch) --
+More filters = more learned patterns, but slower forward pass.
+  8   – fast, minimal features
+  16  – good balance (default second layer)
+  32  – richer features, noticeably slower on CPU
+  64+ – rarely needed for a 20x20 grid
+
+
+--------------------------------------------------------------------------------
+4. HOW TO CHANGE THE SCORE FUNCTION
+--------------------------------------------------------------------------------
+
+File: agent.py
+
+The score function is a heuristic that runs alongside the CNN every step.
+It computes a bonus score for each of the 4 directions BEFORE the final
+argmax decision.  You can tune it without touching the CNN at all.
+
+-- Current components (in agent.py) --
+
+  score_fruit_distance(game, action)
+      Returns negative normalised distance to fruit after the move.
+      Closer = higher value.  Range: roughly [-1, 0].
+
+  score_open_neighbors(game, action)
+      Counts how many of the 4 cells around the next position are free.
+      Returns a value in [0, 1].  High = more open space = less likely to trap.
+
+  score_function(game, action, w_dist=1.0, w_open=0.5)
+      Combined: w_dist * fruit_distance + w_open * open_neighbors
+
+-- Tuning the weights --
+
+In agent.py, find score_function() and change w_dist and w_open:
+
+  def score_function(game, action, w_dist=1.0, w_open=0.5):
+      return w_dist * score_fruit_distance(game, action) \
+           + w_open * score_open_neighbors(game, action)
+
+  w_dist=2.0, w_open=0.2  → more aggressive fruit chasing, less dead-end avoidance
+  w_dist=0.5, w_open=1.0  → prioritise staying alive over reaching fruit
+  w_dist=0.0, w_open=1.0  → ignore fruit entirely, just survive
+
+You can also change the CNN vs heuristic balance in SnakeAgent.__init__:
+  self.cnn_w   = 1.0   # weight of CNN logit contribution
+  self.score_w = 0.4   # weight of heuristic score contribution
+
+Setting cnn_w=0.0 means pure heuristic (no CNN influence).
+Setting score_w=0.0 means pure CNN (no heuristic).
+
+-- Adding a custom scoring term --
+
+Example: penalise moves that go away from the fruit on both axes at once:
+
+  def score_diagonal_penalty(game, action):
+      if not game.fruit:
+          return 0.0
+      dr, dc = DIRS[action]
+      hr, hc = game.snake[0]
+      fr, fc = game.fruit
+      moving_away_r = (dr != 0) and ((hr + dr - fr) ** 2 > (hr - fr) ** 2)
+      moving_away_c = (dc != 0) and ((hc + dc - fc) ** 2 > (hc - fc) ** 2)
+      return -0.5 if (moving_away_r and moving_away_c) else 0.0
+
+Then add it to score_function:
+  def score_function(game, action, w_dist=1.0, w_open=0.5):
+      return (w_dist * score_fruit_distance(game, action)
+            + w_open  * score_open_neighbors(game, action)
+            + score_diagonal_penalty(game, action))
+
+
+--------------------------------------------------------------------------------
+5. HOW TO ADD IMPORTANT FEATURES (TAIL, BODY, POSITION…)
+--------------------------------------------------------------------------------
+
+Features are fed to the CNN as extra channels in the input grid (20x20xC).
+Currently C=3: body channel, head channel, fruit channel.
+
+To add a new feature channel, edit get_state() in snake_game.py.
+
+-- Example A: Add a "tail" channel --
+
+The tail is the last segment of the snake – useful because the CNN can learn
+it will move away next turn (the cell will be free).
+
+  def get_state(self):
+      grid = np.zeros((self.size, self.size, 4), dtype=np.float32)  # 4 channels
+      for r, c in self.snake:
+          grid[r, c, 0] = 1.0                # body
+      hr, hc = self.snake[0]
+      grid[hr, hc, 1] = 1.0                  # head
+      if self.fruit:
+          grid[self.fruit[0], self.fruit[1], 2] = 1.0  # fruit
+      tr, tc = self.snake[-1]
+      grid[tr, tc, 3] = 1.0                  # tail  <-- NEW
+
+Then update HomemadeCNN to expect 4 input channels:
+  agent = SnakeAgent(cnn=HomemadeCNN(in_ch=4, arch=arch))
+
+-- Example B: Body distance map --
+
+Instead of binary (0/1) body pixels, encode how far each body segment is
+from the head (normalised).  The CNN can learn to avoid segments that are
+far away (they will still be there when the snake arrives).
+
+  def get_state(self):
+      grid = np.zeros((self.size, self.size, 3), dtype=np.float32)
+      snake_list = list(self.snake)
+      n = len(snake_list)
+      for i, (r, c) in enumerate(snake_list):
+          grid[r, c, 0] = 1.0 - i / n      # 1.0 at head, fades toward tail
+      hr, hc = snake_list[0]
+      grid[hr, hc, 1] = 1.0
+      if self.fruit:
+          grid[self.fruit[0], self.fruit[1], 2] = 1.0
+
+  Channel 0 now contains a gradient: bright at head, fading to 0 at tail.
+  The CNN can learn that dark values are safe to approach.
+
+-- Example C: Direction channel --
+
+Encode which way the snake is currently moving so the CNN can learn the
+no-reverse rule implicitly.
+
+  DIR_MAP = {UP: 0, DOWN: 1, LEFT: 2, RIGHT: 3}
+
+  def get_state(self):
+      grid = np.zeros((self.size, self.size, 4), dtype=np.float32)
+      ...  # channels 0-2 same as before
+      # channel 3: fill the entire grid with the current direction value
+      grid[:, :, 3] = DIR_MAP[self.direction] / 3.0   # normalise to [0,1]
+
+-- Example D: Danger map (flood fill) --
+
+A flood fill from the head shows which cells are reachable.
+Cells that are completely walled off get value 0, reachable cells get
+a positive value.  This helps the CNN learn to avoid enclosed areas.
+
+  from collections import deque as _deque
+
+  def flood_fill_map(self):
+      visited = np.zeros((self.size, self.size), dtype=np.float32)
+      occupied = set(self.snake)
+      q = _deque([self.snake[0]])
+      step = 0
+      while q:
+          step += 1
+          for _ in range(len(q)):
+              r, c = q.popleft()
+              if visited[r, c]:
+                  continue
+              visited[r, c] = 1.0
+              for dr, dc in DIRS.values():
+                  nr, nc = r + dr, c + dc
+                  if (0 <= nr < self.size and 0 <= nc < self.size
+                          and not visited[nr, nc]
+                          and (nr, nc) not in occupied):
+                      q.append((nr, nc))
+      return visited   # 1 = reachable, 0 = blocked
+
+  Then add it as an extra channel in get_state().
+
+
+--------------------------------------------------------------------------------
+6. HOW TO CHANGE THE COMPUTATION INTERNALS
+--------------------------------------------------------------------------------
+
+File: cnn.py
+
+-- Activation functions --
+
+Default is ReLU.  To switch a layer to a different activation:
+
+  import numpy as np
+
+  def leaky_relu(x, alpha=0.1):
+      return np.where(x > 0, x, alpha * x)
+
+  def tanh_act(x):
+      return np.tanh(x)
+
+  def sigmoid(x):
+      return 1.0 / (1.0 + np.exp(-np.clip(x, -500, 500)))
+
+Then pass it in the arch dict:
+  {"type": "conv", "out_ch": 8, "kernel": 3, "activation": leaky_relu}
+  {"type": "dense", "out_size": 64, "activation": tanh_act}
+
+-- Weight initialisation --
+
+In ConvLayer.__init__ and DenseLayer.__init__, the default is He init:
+  scale = np.sqrt(2.0 / fan_in)
+
+For sigmoid/tanh, Xavier init is usually better:
+  scale = np.sqrt(1.0 / fan_in)    # Xavier uniform equivalent
+
+Change the scale line in the __init__ of whichever layer you want.
+
+-- Padding --
+
+Currently convolutions have NO padding (valid convolution).
+To add zero-padding so spatial size is preserved (same convolution),
+edit _im2col or pad the input before calling forward:
+
+  def forward(self, x):
+      pad = self.k // 2
+      x = np.pad(x, ((pad,pad),(pad,pad),(0,0)), mode='constant')
+      cols  = _im2col(x, self.k, self.k)
+      ...
+
+With same-padding a conv with kernel=3 keeps the spatial size:
+  20x20 -> 20x20 -> 20x20 (instead of 18x18 -> 16x16)
+
+-- Stride --
+
+_im2col currently uses stride=1.  To add stride support:
+
+  def _im2col(x, kH, kW, stride=1):
+      H, W, C = x.shape
+      out_H = (H - kH) // stride + 1
+      out_W = (W - kW) // stride + 1
+      shape   = (out_H, out_W, kH, kW, C)
+      strides = (x.strides[0]*stride, x.strides[1]*stride,
+                 x.strides[0],        x.strides[1],
+                 x.strides[2])
+      patches = np.lib.stride_tricks.as_strided(x, shape=shape, strides=strides)
+      return patches.reshape(out_H * out_W, kH * kW * C)
+
+Then set stride=2 to halve the spatial size (similar effect to pooling).
+
+-- Batch normalisation (simple version) --
+
+Add a normalisation step after each conv to keep activations stable:
+
+  class BatchNorm:
+      def forward(self, x, eps=1e-5):
+          mean = x.mean(axis=(0,1), keepdims=True)
+          std  = x.std(axis=(0,1),  keepdims=True)
+          return (x - mean) / (std + eps)
+
+Then insert it in the arch or manually call it in HomemadeCNN._build.
+
+
+--------------------------------------------------------------------------------
+7. HOW TO TRAIN THE AGENT
+--------------------------------------------------------------------------------
+
+Run:
+    python train.py
+
+The script uses a (1+1) Evolution Strategy:
+  - One parent, one offspring per generation
+  - Offspring = parent weights + Gaussian noise (sigma=0.05)
+  - Keep offspring if fitness >= parent fitness
+  - Fitness = average total reward over 5 episodes
+
+Tunable constants at the top of train.py:
+
+  EPISODES_PER_EVAL = 5      # more episodes = more stable fitness estimate
+  MAX_STEPS         = 600    # longer episodes = better score measurement
+  SIGMA             = 0.05   # mutation noise;  smaller = finer search
+  GENERATIONS       = 300    # total generations to run
+
+After training, load the weights in main.py by uncommenting:
+    # if os.path.exists("best_weights.npy"):
+    #     agent.cnn.set_weights(np.load("best_weights.npy"))
+
+
+--------------------------------------------------------------------------------
+8. QUICK REFERENCE MAP
+--------------------------------------------------------------------------------
+
+  What you want to change              File         Where
+  -----------------------------------  -----------  ----------------------------
+  Add / remove CNN layers              main.py      arch = [...] variable
+  Change filter count or kernel size   main.py      arch dict entries
+  Add activation function              cnn.py       relu / new function at top
+  Change weight init                   cnn.py       ConvLayer / DenseLayer __init__
+  Add padding or stride                cnn.py       _im2col function
+  Add a feature channel (tail etc.)    snake_game.py  get_state() method
+  Add adjacent cell logic              snake_game.py  get_adjacent() method
+  Tune heuristic weights               agent.py     score_function() w_dist/w_open
+  Add a new heuristic term             agent.py     new function + add to score_function
+  Change CNN vs heuristic balance      agent.py     SnakeAgent cnn_w / score_w
+  Tune training speed / mutation       train.py     SIGMA, GENERATIONS constants
+  Speed of visualisation               main.py      speed variable (or +/- at runtime)
+
+================================================================================

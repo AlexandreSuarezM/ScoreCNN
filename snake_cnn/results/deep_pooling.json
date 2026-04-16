@@ -1,0 +1,60 @@
+{
+  "experiment": {
+    "name": "deep_pooling",
+    "arch_name": "deep",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.05,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "description": "4 layers with max-pool, more capacity"
+  },
+  "timestamp": "2026-04-16T10:14:26.284795+00:00",
+  "duration_seconds": 10.49,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": -0.6633333333332798
+    },
+    {
+      "generation": 10,
+      "best_fitness": 2.6733333333333946
+    },
+    {
+      "generation": 20,
+      "best_fitness": 2.6733333333333946
+    },
+    {
+      "generation": 30,
+      "best_fitness": 6.010000000000066
+    },
+    {
+      "generation": 40,
+      "best_fitness": 6.010000000000066
+    },
+    {
+      "generation": 50,
+      "best_fitness": 9.346666666666563
+    },
+    {
+      "generation": 60,
+      "best_fitness": 9.346666666666563
+    },
+    {
+      "generation": 70,
+      "best_fitness": 9.34666666666658
+    },
+    {
+      "generation": 80,
+      "best_fitness": 9.34666666666658
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 9.34666666666658,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

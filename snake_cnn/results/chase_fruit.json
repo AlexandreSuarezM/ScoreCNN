@@ -1,0 +1,60 @@
+{
+  "experiment": {
+    "name": "chase_fruit",
+    "arch_name": "default",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 2.5,
+    "w_open": 0.1,
+    "sigma": 0.05,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "description": "Score heavily biased toward fruit distance"
+  },
+  "timestamp": "2026-04-16T10:14:34.727741+00:00",
+  "duration_seconds": 8.33,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": 2.6733333333331672
+    },
+    {
+      "generation": 10,
+      "best_fitness": 6.00999999999986
+    },
+    {
+      "generation": 20,
+      "best_fitness": 6.00999999999986
+    },
+    {
+      "generation": 30,
+      "best_fitness": 6.00999999999986
+    },
+    {
+      "generation": 40,
+      "best_fitness": 6.00999999999986
+    },
+    {
+      "generation": 50,
+      "best_fitness": 6.00999999999986
+    },
+    {
+      "generation": 60,
+      "best_fitness": 6.0099999999998905
+    },
+    {
+      "generation": 70,
+      "best_fitness": 6.0099999999998905
+    },
+    {
+      "generation": 80,
+      "best_fitness": 6.0099999999998905
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 6.0099999999998905,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

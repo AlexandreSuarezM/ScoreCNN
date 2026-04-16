@@ -1,0 +1,150 @@
+{
+  "experiment": {
+    "name": "reward_flood",
+    "arch_name": "default",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.05,
+    "generations": 300,
+    "episodes_per_eval": 5,
+    "max_steps": 600,
+    "reward_fn": "flood",
+    "fruit_timeout": null,
+    "description": "Flood-fill safety: rewards keeping open board area"
+  },
+  "timestamp": "2026-04-16T10:47:08.840989+00:00",
+  "duration_seconds": 544.44,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": 909.3267780505666
+    },
+    {
+      "generation": 10,
+      "best_fitness": 909.3267780505666
+    },
+    {
+      "generation": 20,
+      "best_fitness": 909.3267780505666
+    },
+    {
+      "generation": 30,
+      "best_fitness": 909.3267780505666
+    },
+    {
+      "generation": 40,
+      "best_fitness": 909.3267780505666
+    },
+    {
+      "generation": 50,
+      "best_fitness": 909.3269241533677
+    },
+    {
+      "generation": 60,
+      "best_fitness": 909.3269241533677
+    },
+    {
+      "generation": 70,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 80,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 90,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 100,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 110,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 120,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 130,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 140,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 150,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 160,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 170,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 180,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 190,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 200,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 210,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 220,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 230,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 240,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 250,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 260,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 270,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 280,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 290,
+      "best_fitness": 917.7316612626537
+    },
+    {
+      "generation": 300,
+      "best_fitness": 917.7316612626537
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 917.7316612626537,
+    "final_generation": 300,
+    "total_episodes_approx": 1500
+  }
+}

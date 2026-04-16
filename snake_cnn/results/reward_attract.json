@@ -1,0 +1,150 @@
+{
+  "experiment": {
+    "name": "reward_attract",
+    "arch_name": "default",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.05,
+    "generations": 300,
+    "episodes_per_eval": 5,
+    "max_steps": 600,
+    "reward_fn": "attract",
+    "fruit_timeout": null,
+    "description": "Fruit = always positive. Closer=reward, never penalise distance"
+  },
+  "timestamp": "2026-04-16T11:03:35.853553+00:00",
+  "duration_seconds": 768.18,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": 426.8920143500494
+    },
+    {
+      "generation": 10,
+      "best_fitness": 426.8920143500494
+    },
+    {
+      "generation": 20,
+      "best_fitness": 426.8920143500494
+    },
+    {
+      "generation": 30,
+      "best_fitness": 426.8920143500494
+    },
+    {
+      "generation": 40,
+      "best_fitness": 426.8920143500494
+    },
+    {
+      "generation": 50,
+      "best_fitness": 426.8920143500494
+    },
+    {
+      "generation": 60,
+      "best_fitness": 426.8920143500494
+    },
+    {
+      "generation": 70,
+      "best_fitness": 427.3720102791126
+    },
+    {
+      "generation": 80,
+      "best_fitness": 427.3720102791126
+    },
+    {
+      "generation": 90,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 100,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 110,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 120,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 130,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 140,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 150,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 160,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 170,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 180,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 190,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 200,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 210,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 220,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 230,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 240,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 250,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 260,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 270,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 280,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 290,
+      "best_fitness": 429.771996539704
+    },
+    {
+      "generation": 300,
+      "best_fitness": 429.771996539704
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 429.771996539704,
+    "final_generation": 300,
+    "total_episodes_approx": 1500
+  }
+}

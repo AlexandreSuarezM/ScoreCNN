@@ -1,0 +1,63 @@
+{
+  "experiment": {
+    "name": "score_attract",
+    "arch_name": "default",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.05,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "reward_fn": "attract",
+    "fruit_timeout": 60,
+    "score_fitness": true,
+    "description": "Fitness=fruits*1000+steps. Attract reward. Circling = losing"
+  },
+  "timestamp": "2026-04-16T10:59:21.571775+00:00",
+  "duration_seconds": 7.67,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": 404.3333333333333
+    },
+    {
+      "generation": 10,
+      "best_fitness": 1068.6666666666667
+    },
+    {
+      "generation": 20,
+      "best_fitness": 1068.6666666666667
+    },
+    {
+      "generation": 30,
+      "best_fitness": 1068.6666666666667
+    },
+    {
+      "generation": 40,
+      "best_fitness": 1068.6666666666667
+    },
+    {
+      "generation": 50,
+      "best_fitness": 1068.6666666666667
+    },
+    {
+      "generation": 60,
+      "best_fitness": 1068.6666666666667
+    },
+    {
+      "generation": 70,
+      "best_fitness": 1068.6666666666667
+    },
+    {
+      "generation": 80,
+      "best_fitness": 1068.6666666666667
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 1068.6666666666667,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

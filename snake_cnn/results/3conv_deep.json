@@ -1,0 +1,60 @@
+{
+  "experiment": {
+    "name": "3conv_deep",
+    "arch_name": "3conv",
+    "cnn_w": 1.0,
+    "score_w": 0.4,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.03,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "description": "3 conv layers + pooling, tighter mutation"
+  },
+  "timestamp": "2026-04-16T10:15:19.932288+00:00",
+  "duration_seconds": 18.64,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": -3.9999999999999587
+    },
+    {
+      "generation": 10,
+      "best_fitness": -0.663333333333278
+    },
+    {
+      "generation": 20,
+      "best_fitness": -0.6633333333332775
+    },
+    {
+      "generation": 30,
+      "best_fitness": -0.6633333333332775
+    },
+    {
+      "generation": 40,
+      "best_fitness": -0.6633333333332775
+    },
+    {
+      "generation": 50,
+      "best_fitness": -0.6633333333332775
+    },
+    {
+      "generation": 60,
+      "best_fitness": 2.6733333333334026
+    },
+    {
+      "generation": 70,
+      "best_fitness": 2.6733333333334026
+    },
+    {
+      "generation": 80,
+      "best_fitness": 2.6733333333334026
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 2.6733333333334026,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

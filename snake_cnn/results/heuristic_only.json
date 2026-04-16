@@ -1,0 +1,60 @@
+{
+  "experiment": {
+    "name": "heuristic_only",
+    "arch_name": "default",
+    "cnn_w": 0.0,
+    "score_w": 1.0,
+    "w_dist": 1.0,
+    "w_open": 0.5,
+    "sigma": 0.05,
+    "generations": 80,
+    "episodes_per_eval": 3,
+    "max_steps": 400,
+    "description": "Pure heuristic \u2013 CNN is ignored (control experiment)"
+  },
+  "timestamp": "2026-04-16T10:15:01.069900+00:00",
+  "duration_seconds": 8.84,
+  "training_curve": [
+    {
+      "generation": 0,
+      "best_fitness": 106.11000000000034
+    },
+    {
+      "generation": 10,
+      "best_fitness": 106.11000000000034
+    },
+    {
+      "generation": 20,
+      "best_fitness": 106.11000000000034
+    },
+    {
+      "generation": 30,
+      "best_fitness": 106.11000000000034
+    },
+    {
+      "generation": 40,
+      "best_fitness": 116.12000000000035
+    },
+    {
+      "generation": 50,
+      "best_fitness": 116.12000000000035
+    },
+    {
+      "generation": 60,
+      "best_fitness": 116.12000000000035
+    },
+    {
+      "generation": 70,
+      "best_fitness": 116.12000000000035
+    },
+    {
+      "generation": 80,
+      "best_fitness": 116.12000000000035
+    }
+  ],
+  "final_metrics": {
+    "best_fitness": 116.12000000000035,
+    "final_generation": 80,
+    "total_episodes_approx": 240
+  }
+}

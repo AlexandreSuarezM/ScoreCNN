@@ -1,0 +1,58 @@
+
+
+this can maybe jsut coded so no fun in that 
+so what is the purpose of this
+We dont want the most eficient we want a way to deal 
+Problem
+Unexpected valeus 
+the value in that in cnn is identification + clustering + task asingment.
+
+
+MNIST via spectral clustering / via random amount of pixel chossen how likely
+it is to find one on top.
+given the proportion of ink of number.
+How the lenght.
+Spliting the number on even places . 
+Things to reenvision the problem
+Onestly the TML might be a god way .
+
+Solving snake at a diferent level
+How its learning
+Efitienty asking for a software that solves it 
+The Scoring fucntion
+
+Priorize .
+Making the fruit less valuable is not good o ntime.
+Death as to be less valuable
+Making square repetition a bad move.
+Precalculating death
+	Meaning sometimes a decisions is death but not instantly and might
+lack to recognise the factor.
+	Efitienty.	
+	Situations 
+		Spliting the diferent places of the snake 
+		Split is the problem
+		On the left space
+		The generation of the fruit is on the amount of free space ? 
+		Go for your tail if not enought space? 
+So how to model this on a score function
+	How to make the cnn uderstand.
+punish on spliting multiples .
+make it starve and worse score final if death by starvation happens if it doesnt reach on 40 steps increase the this number up to
+400 in late game .
+Maybe this wont work bacause it doesnt learn the cause of death its foing well
+until no more, maybe make the squares near the fruit more valuable so it tends
+to gravitate there? but this would infer with the split section tail
+chassing... 
+CNN only captates the image 
+So we need a way to rerepresent the features give them coloring in fucntion of
+were the tail is or not if the screen gets split ?
+
+
+Problem the cnn rewards point on each direction
+Not on the code building .
+Not on the rule extractor .
+We need a way to make it generate paterns not to rank idependent samples .
+i
+Agent making of snakes :____: CNN are good at identification not code building
+not resource extracting  
