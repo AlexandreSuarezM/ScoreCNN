@@ -1,0 +1,64 @@
+Just stomping rihgt on the local optimizion problem.
+The code generates no memory.
+So even if there is a fruit
+And score degradates for not reaching it it will never reach
+its stalled in survival mode without hability yo scan.
+Random would have a better result.
+
+So for the it has no memory, and the output scoring is 4 directional.
+Ways to afect this.
+Weight the squares so they are better.
+If fruit is available go for it .
+  This can trap the snake in a deth loop.
+    It will never learn the why it died because the mistake was entering a limited options before death.
+    This is proc by not having acces to the tail.
+  If the tail has priority over the fruit then i will enter a loop and never go for fruit.
+So fruit has to have priority, and the cnn has to determine the options, the squares have to be computed in a diferent way.
+Once a loop is entered the squared close to the snake have more value that the others.
+This make the pathing towards the fruit worse so i has to be a sequecuencing.
+
+If fruit available -> fruit values
+  If fruit not aavilable -> survive -> this could create a loop were the fruit is never available.
+    If the tail ahs only 1 square outs and the space
+    If the space of the fruit is small and has no tail in it dont go
+  If the space your inside then make tight but dont block the tail.
+tldr -> fruit priority, can come back , tail position.
+  This is the next attempt.
+Fruit will generate and increase conditional weight.
+Tail position and body condition on partition will generate clusters that go to 0. 
+When in survival mode near skin and other have mroe value.
+This is not an algoritm its a procedure .
+An optimistic one made with rules.
+There is no scoring function
+Wich was the intended thing.
+The problem with the function was primarely the lack of memroy.
+Since the ouput cell was 4 decisions no memory can be traced .
+
+so:
+  score what are you doing step function:
+    tail space computation sufitient ? go for fruit no go for tail ? tail blocked? go for skin. 
+    Problem tail moves , so the calculations can be delayed . 
+    tail has space 2<
+    yes -> fruit with squares gain more value.
+    no ->  non body squares reachable. <- this raechable is the hard one . but is a long x long y distance and 0 cuts it .
+    
+    
+
+
+Ideally learn the features one by one ?
+Or make it genetically learning .
+Or make it so it can generate 4^4 outcomes, problem being is that 4*4 costs a lot and the way of telling is that wich squae is better.
+The weights on the squares are what evaluate the best .
+problem? 
+We evaluate only the position of the head realative to the food.
+We need to evaluate the whole snake.
+To make decision on the head.
+
+Atemps at not repeating squares by reducing score did not work due to the lack of memory.
+
+Alternative, agents were is the food optimal path, can we reach without diyng.
+
+
+
+
+
