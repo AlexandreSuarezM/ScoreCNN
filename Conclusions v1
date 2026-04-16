@@ -58,6 +58,9 @@ Atemps at not repeating squares by reducing score did not work due to the lack o
 
 Alternative, agents were is the food optimal path, can we reach without diyng.
 
+tldr the main challenge resides into making the cnn with no memorty score the best results out of the locality, so eahc option ahs to carry the weigth of all teh options on the nearby enclousure.
+
+
 
 
 
